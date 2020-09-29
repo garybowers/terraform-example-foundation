@@ -18,9 +18,9 @@
 # Make will use bash instead of sh
 SHELL := /usr/bin/env bash
 
-DOCKER_TAG_VERSION_DEVELOPER_TOOLS := 0
+DOCKER_TAG_VERSION_DEVELOPER_TOOLS := 0.14.0
 DOCKER_IMAGE_DEVELOPER_TOOLS := cft/developer-tools
-REGISTRY_URL := gcr.io/cloud-foundation-cicd
+REGISTRY_URL := gcr.io/cloud-build-bharath-org-gh
 
 # Execute lint tests within the docker container
 .PHONY: docker_test_lint
@@ -28,6 +28,15 @@ docker_test_lint:
 	docker run --rm -it \
 		-v $(CURDIR):/workspace \
 		$(REGISTRY_URL)/${DOCKER_IMAGE_DEVELOPER_TOOLS}:${DOCKER_TAG_VERSION_DEVELOPER_TOOLS} \
+		/usr/local/bin/test_lint.sh
+
+# Execute lint tests within the docker container
+.PHONY: docker_test_lint_parallel
+docker_test_lint_parallel:
+	docker run --rm -it \
+		-e ENABLE_PARALLEL=1 \
+		-v "$(CURDIR)":/workspace \
+		cft/developer-tools:0.14.0 \
 		/usr/local/bin/test_lint.sh
 
 # Generate documentation

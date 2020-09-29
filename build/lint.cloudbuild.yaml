@@ -13,7 +13,7 @@
 # limitations under the License.
 
 steps:
-- name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+- name: 'gcr.io/cloud-build-bharath-org-gh/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   id: 'lint'
   args: ['/usr/local/bin/test_lint.sh']
 tags:
@@ -21,4 +21,8 @@ tags:
 - 'lint'
 substitutions:
   _DOCKER_IMAGE_DEVELOPER_TOOLS: 'cft/developer-tools'
-  _DOCKER_TAG_VERSION_DEVELOPER_TOOLS: '0.12.0'
+  _DOCKER_TAG_VERSION_DEVELOPER_TOOLS: '0.14.0'
+options:
+  machineType: 'N1_HIGHCPU_8'
+  env:
+  - ENABLE_PARALLEL=1
